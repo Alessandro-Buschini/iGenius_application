@@ -2,10 +2,10 @@
   "name": "alessandro_buschini_solution",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "converter.js",
   "scripts": {
-    "start": "node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/converter.js",
+    "test": "nodemon src/converter.js"
   },
   "author": "",
   "license": "ISC",
