@@ -5,15 +5,17 @@
   "main": "converter.js",
   "scripts": {
     "start": "node src/converter.js",
-    "test": "nodemon src/converter.js"
+    "dev": "nodemon src/converter.js",
+    "test": "mocha test/test_api_converter.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "express": "^4.17.1",
     "json-query": "^2.2.2",
-    "xml2js": "^0.4.22",
-    "xmldom": "^0.1.27",
-    "xpath": "0.0.27"
+    "mocha": "^6.2.0",
+    "xml2js": "^0.4.22"
   }
 }

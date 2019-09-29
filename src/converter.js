@@ -1,15 +1,16 @@
 console.log("app start");
 let express = require('express');
 let https = require('https');
-let xml2js =require('xml2js');
-let fs = require('fs')
+let logic = require('./logic')
 
-let parser = new xml2js.Parser();
 let app = express();
 
 
 let xmlString = "";
 
+
+
+// USING URL PARAMETERS
 app.get('/api/convert/:date/:src_currency/:dest_currency/:amount',(req, res) => {
     https.get('https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml',(resp)=>{
         // A chunk of data has been recieved.
@@ -18,26 +19,62 @@ app.get('/api/convert/:date/:src_currency/:dest_currency/:amount',(req, res) => 
         });
         // The whole response has been received. Print out the result.
         resp.on('end', () => {
-            console.log(xmlString);
             console.log('xml retieved');
-
-            parser.parseString(xmlString, function (err, json_obj) {
-                json_data = json_obj["gesmes:Envelope"]["Cube"][0]["Cube"]
-                var res_obj = convert(json_data,req.params.date,req.params.src_currency,req.params.dest_currency,req.params.amount);
-
-                res.send(res_obj);
+            //parse xml to json
+            logic.parse(xmlString).then((json_data)=>{
+                let conversion_results = logic.convert(json_data,req.params.date,req.params.src_currency,req.params.dest_currency,req.params.amount);
+                ////console.log(conversion_results);
+                if (conversion_results[1]) {
+                    res.status(200).send(conversion_results[0]);
+                } else {
+                    res.status(400).send({'error': conversion_results[0]});
+                }
+            }).catch((err)=>{
+                console.log(err);
+                res.status(500).send("error during parsing... "+ err);
             });
-            
         });//resp.on
     }).on("error", (err) => {
         console.log("Error: " + err.message);
     });//on  
 });//app.get
 
+app.get('/api/stored/convert/:date/:src_currency/:dest_currency/:amount',(req, res) => {
+    var json_data = logic.load_from_stored_json();
+    //var res_obj = logic.convert(json_data,req.params.date,req.params.src_currency,req.params.dest_currency,req.params.amount);
+    //res.send(res_obj);
+    let conversion_results = logic.convert(json_data,req.params.date,req.params.src_currency,req.params.dest_currency,req.params.amount);
+    //console.log(conversion_results);
+    if (conversion_results[1]) {
+        res.status(200).send(conversion_results[0]);
+    } else {
+        res.status(400).send({'error': conversion_results[0]});
+    }
+});//app.get
 
 
+//http://localhost:3000/api/stored/convert?reference_date=2019-09-06&src_currency=EUR&dest_currency=EUR&amount=10
+app.get('/api/stored/convert',(req, res) => {
+    if(req.query.amount==undefined||req.query.src_currency==undefined||req.query.dest_currency==undefined||req.query.reference_date==undefined){
+        res_obj={'error': "bad query params"};
+        res.status(400).send(res_obj);
+    }
+    var json_data = logic.load_from_stored_json();
+    let conversion_results = logic.convert(json_data,req.query.reference_date,req.query.src_currency,req.query.dest_currency,req.query.amount);
+    //console.log(conversion_results);
+    if (conversion_results[1]) {
+        res.status(200).send(conversion_results[0]);
+    } else {
+        res.status(400).send({'error': conversion_results[0]});
+    }
+});//app.get
 
-function load_data_and_store() {
+
+app.get('/api/convert',(req, res) => {
+    if(req.query.amount==undefined||req.query.src_currency==undefined||req.query.dest_currency==undefined||req.query.reference_date==undefined){
+        res_obj={'error': "bad query params"};
+        res.status(400).send(res_obj);
+    }
     https.get('https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml',(resp)=>{
         // A chunk of data has been recieved.
         resp.on('data', (chunk) => {
@@ -45,42 +82,31 @@ function load_data_and_store() {
         });
         // The whole response has been received. Print out the result.
         resp.on('end', () => {
-            console.log(xmlString);
             console.log('xml retieved');
-
-            parser.parseString(xmlString, function (err, json_obj) {
-                json_data = json_obj["gesmes:Envelope"]["Cube"][0]["Cube"]
-                fs.writeFileSync('stored_cleaned_data.json', JSON.stringify(json_data));               
+            //parse xml to json
+            logic.parse(xmlString).then((json_data)=>{
+                let conversion_results = logic.convert(json_data,req.query.reference_date,req.query.src_currency,req.query.dest_currency,req.query.amount);
+                //console.log(conversion_results);
+                if (conversion_results[1]) {
+                    res.status(200).send(conversion_results[0]);
+                } else {
+                    res.status(400).send({'error': conversion_results[0]});
+                }
+            }).catch((err)=>{
+                console.log(err);
+                res.status(500).send("error during parsing... "+ err);
             });
-            
         });//resp.on
     }).on("error", (err) => {
         console.log("Error: " + err.message);
     });//on  
-}
-
-
-function convert(json_data, date,from,to,value) {
-    var from_rate,to_rate =0;
-    if(from=="EUR"){
-        from_rate=1;
-    }else{
-        from_rate= json_data.find(y => y["$"]["time"]==date)["Cube"].find(y=> y["$"]["currency"]==from).$["rate"];
-    }
-    console.log(from_rate);
-    
-    to_rate= json_data.find(y => y["$"]["time"]==date)["Cube"].find(y=> y["$"]["currency"]==to).$["rate"];
-    console.log(to_rate)
-    converted_obj={
-        "amount" : value/from_rate*to_rate,
-        "currency": to
-    };
-    return converted_obj;
-}
+});//app.get
 
 
 const port = process.env.PORT || 3000
-app.listen(port, ()=> {
+let server= app.listen(port, ()=> {
     console.info("listening on port" + port+"...");
-    load_data_and_store();
+    logic.download_data_and_store();
 });
+
+module.exports = server
