@@ -10,7 +10,7 @@ Hosting the backend dev assignment solution By Alessandro Buschini
 
 ## Installation
 There are 2 ways:
-* [Using Docker](#Using-docker)
+* [Using Docker (suggested)](#Using-docker-(suggested))
 * [Using npm](#Using-npm)
 
 ### Using Docker (suggested)
