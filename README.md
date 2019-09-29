@@ -2,7 +2,7 @@
 Hosting the backend dev assignment solution By Alessandro Buschini
 
 * [Installation](#Installation)
-    * [Using Docker](#Using-Docker-(suggested))
+    * [Using Docker (suggested)](#Using-Docker-(suggested))
     * [Using npm](#Using-npm)
 * [Run API](#Run-API)
 * [Automated Tests](#Automated-Tests)
@@ -10,7 +10,7 @@ Hosting the backend dev assignment solution By Alessandro Buschini
 
 ## Installation
 There are 2 ways:
-* [Using Docker](#Using-docker)
+* [Using Docker (suggested)](#Using-Docker-(suggested))
 * [Using npm](#Using-npm)
 
 ### Using Docker (suggested)
