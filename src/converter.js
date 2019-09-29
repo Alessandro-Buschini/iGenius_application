@@ -19,7 +19,7 @@ app.get('/api/convert/:date/:src_currency/:dest_currency/:amount',(req, res) => 
         });
         // The whole response has been received. Print out the result.
         resp.on('end', () => {
-            console.log('xml retieved');
+            console.log('xml retrieved');
             //parse xml to json
             logic.parse(xmlString).then((json_data)=>{
                 let conversion_results = logic.convert(json_data,req.params.date,req.params.src_currency,req.params.dest_currency,req.params.amount);
@@ -82,7 +82,7 @@ app.get('/api/convert',(req, res) => {
         });
         // The whole response has been received. Print out the result.
         resp.on('end', () => {
-            console.log('xml retieved');
+            console.log('xml retrieved');
             //parse xml to json
             logic.parse(xmlString).then((json_data)=>{
                 let conversion_results = logic.convert(json_data,req.query.reference_date,req.query.src_currency,req.query.dest_currency,req.query.amount);
@@ -105,7 +105,7 @@ app.get('/api/convert',(req, res) => {
 
 const port = process.env.PORT || 3000
 let server= app.listen(port, ()=> {
-    console.info("listening on port" + port+"...");
+    console.info("listening on port " + port+" ...");
     logic.download_data_and_store();
 });
 

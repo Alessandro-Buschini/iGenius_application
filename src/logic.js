@@ -14,7 +14,7 @@ function download_data_and_store() {
         // The whole response has been received. Print out the result.
         resp.on('end', () => {
             //console.log(xmlString);
-            console.log('xml retieved');
+            console.log('xml retrieved');
             parse(xmlString).then((json_data)=>{
                 fs.writeFileSync('stored_cleaned_data.json', JSON.stringify(json_data)); 
             }).catch((err)=>{
@@ -81,14 +81,3 @@ module.exports = {
     load_from_stored_json,
 }
 
-/*
-function checkParams(params,json_data){
-    let isValid=true;
-    let err="";
-    if (json_data.find(y => y["$"]["time"]==params.date).length >=0 ) { return (false, "wrong date specified")};  
-    if (json_data.find(y => y["$"]["time"]==params.date)["Cube"].find(y=> y["$"]["currency"]==params.src_currency).length==0) {return (false, "wrong src_currency specified")};
-    if (json_data.find(y => y["$"]["time"]==params.date)["Cube"].find(y=> y["$"]["currency"]==params.dest_currency).length==0) {return (false, "wrong dest_currency specified")};
-    if (params.amount<=0) {return (false, "wrong amount specified")};
-    return (isValid,err);
-}
-*/
