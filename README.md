@@ -18,7 +18,7 @@ The API container is available [here](https://cloud.docker.com/u/alessandrobusch
 Once you have docker installed:
 1. Run the container: 
 ```bash
-docker run -p 9000:3000 alessandrobuschini/igenius_assignment:v1
+docker run -p 3000:3000 alessandrobuschini/igenius_assignment:v1
 ```
 
 2. The console output should be the following:
