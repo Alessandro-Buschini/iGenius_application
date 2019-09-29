@@ -2,10 +2,10 @@
 Hosting the backend dev assignment solution By Alessandro Buschini
 
 * [Installation](#Installation)
-    * [Using Docker](#Using-docker-(suggested))
+    * [Using Docker](#Using-Docker-(suggested))
     * [Using npm](#Using-npm)
 * [Run API](#Run-API)
-* [Automated Test](Automated-Test)
+* [Automated Tests](#Automated-Tests)
 
 
 ## Installation
@@ -14,7 +14,7 @@ There are 2 ways:
 * [Using npm](#Using-npm)
 
 ### Using Docker (suggested)
-The api container is available [here](https://cloud.docker.com/u/alessandrobuschini/repository/docker/alessandrobuschini/igenius_assignment).
+The API container is available [here](https://cloud.docker.com/u/alessandrobuschini/repository/docker/alessandrobuschini/igenius_assignment).
 Once you have docker installed:
 1. Run the container: 
 ```bash
@@ -56,7 +56,7 @@ xml retrieved
 
 ## Run API
 
-The Converter API is designed to handle requests both with url params and wuery parameters, and the user can also decide whether retrieve updated data from the online [link](https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml) or use the <em><strong>stored data retireved at project startup time.</strong></em>
+The Converter API is designed to handle requests both with url params and query parameters, and the user can also decide whether retrieve updated data from the online [link](https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml) or use the <em><strong>stored data retrieved at project startup time.</strong></em>
 
 ### Examples 
 Using real time online data:
@@ -68,7 +68,7 @@ http://localhost:3000/api/convert/2019-09-06/EUR/JPY/10
 ```bash
 http://localhost:3000/api/convert?reference_date=2019-09-06&src_currency=EUR&dest_currency=JPY&amount=10
 ```
-Using <em><strong>stored data retireved at project startup time.</strong></em>
+Using <em><strong>stored data retrieved at project startup time.</strong></em>
 * With url params
 ```bash
 http://localhost:3000/api/stored/convert/2019-09-06/EUR/JPY/10
@@ -79,7 +79,7 @@ http://localhost:3000/api/stored/convert?reference_date=2019-09-06&src_currency=
 ```
 
 
-## Automated Test
+## Automated Tests
 There are 2 ways:
 * [Testing Using Docker](#Testing-using-docker)
 * [Testing Using npm](#Testing-using-npm)
@@ -95,7 +95,7 @@ docker run -p 9000:3000 alessandrobuschini/igenius_assignment_test:v1
 
 ### Testing using npm 
 1. install Node.js and npm
-2. install the following packages and dependences using:  npm install
+2. install the following packages and dependencies using:  npm install
 ```javascript 
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
