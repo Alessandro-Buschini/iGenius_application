@@ -90,7 +90,7 @@ The Test container is available [here](https://cloud.docker.com/u/alessandrobusc
 Once you have docker installed:
 1. Run the container: 
 ```bash
-docker run -p 9000:3000 alessandrobuschini/igenius_assignment_test:v1
+docker run alessandrobuschini/igenius_assignment_test:v1
 ```
 
 ### Testing using npm 
