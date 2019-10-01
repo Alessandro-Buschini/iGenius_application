@@ -24,7 +24,7 @@ docker run -p 3000:3000 alessandrobuschini/igenius_assignment:v1
 2. The console output should be the following:
 ```bash
 app start
-listening on port3000...
+listening on port 3000...
 xml retrieved
 ```
 
@@ -48,13 +48,15 @@ npm start
 2. The console output should be the following:
 ```bash
 app start
-listening on port3000...
+listening on port 3000...
 xml retrieved
 ```
 
 
 
 ## Run API
+
+NOTE: if you have mapped the container ports differently, or you have the variable <em>process.env.PORT</em> set, the URLs in the Example section should be adapted replacing the port 3000 with the port number chosen.
 
 The Converter API is designed to handle requests both with url params and query parameters, and the user can also decide whether retrieve updated data from the online [link](https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml) or use the <em><strong>stored data retrieved at project startup time.</strong></em>
 
