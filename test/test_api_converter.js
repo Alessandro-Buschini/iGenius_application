@@ -13,7 +13,8 @@ chai.use(chaiHttp);
 
 
 //TEST CASES WITH ONLINE DATASET
-describe('Get Test-Cases from ONLINE DATASET', () => {
+describe('Get Test-Cases from ONLINE DATASET', function(){
+    this.timeout(30000);
     it('Converting from api OK EUR to something', (done) => {
         chai.request(api)
             .get('/api/convert/2019-09-06/EUR/JPY/10')
@@ -90,7 +91,8 @@ describe('Get Test-Cases from ONLINE DATASET', () => {
 });
 
 //TEST CASES WITH STORED JSON
-describe('Get Test-Cases from STORED DATASET', () => {
+describe('Get Test-Cases from STORED DATASET', function(){
+    this.timeout(30000);
     it('Converting from api OK EUR to something', (done) => {
         chai.request(api)
             .get('/api/stored/convert/2019-09-06/EUR/JPY/10')
@@ -168,7 +170,8 @@ describe('Get Test-Cases from STORED DATASET', () => {
 
 
 //TEST CASES WITH ONLINE DATASET AND QUERY PARAMS
-describe('Get Test-Cases WITH QUERY PARAMS from ONLINE DATASET', () => {
+describe('Get Test-Cases WITH QUERY PARAMS from ONLINE DATASET', function(){
+    this.timeout(30000);
     it('Converting from api OK EUR to something', (done) => {
         chai.request(api)
             .get('/api/convert?reference_date=2019-09-06&src_currency=EUR&dest_currency=JPY&amount=10')
@@ -247,7 +250,8 @@ describe('Get Test-Cases WITH QUERY PARAMS from ONLINE DATASET', () => {
 
 
 //TEST CASES WITH STORED JSON AND QUERY PARAMS
-describe('Get Test-Cases WITH QUERY PARAMS from STORED DATASET', () => {
+describe('Get Test-Cases WITH QUERY PARAMS from STORED DATASET', function(){
+    this.timeout(30000);
     it('Converting from api OK EUR to something', (done) => {
         chai.request(api)
             .get('/api/stored/convert?reference_date=2019-09-06&src_currency=EUR&dest_currency=JPY&amount=10')
