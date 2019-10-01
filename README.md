@@ -14,7 +14,7 @@ There are 2 ways:
 * [Using npm](#Using-npm)
 
 ### Using Docker (suggested)
-The API container is available [here](https://cloud.docker.com/u/alessandrobuschini/repository/docker/alessandrobuschini/igenius_assignment).
+The API container is available [here](https://hub.docker.com/r/alessandrobuschini/igenius_assignment).
 Once you have docker installed:
 1. Run the container: 
 ```bash
@@ -92,7 +92,7 @@ There are 2 ways of runnuning the tests:
 * [Expected Results](#Expected-Results)
 
 ### Testing using Docker (suggested) 
-The Test container is available [here](https://cloud.docker.com/u/alessandrobuschini/repository/docker/alessandrobuschini/igenius_assignment_test).
+The Test container is available [here](https://hub.docker.com/r/alessandrobuschini/igenius_assignment_test).
 Once you have docker installed:
 1. Run the container: 
 ```bash
