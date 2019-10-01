@@ -80,12 +80,16 @@ http://localhost:3000/api/stored/convert?reference_date=2019-09-06&src_currency=
 
 
 ## Automated Tests
-There are 2 ways:
-* [Testing Using Docker](#Testing-using-docker)
+The test cases cover multiple situations:
+* the ones labelled with "OK" simulate correct use cases of the API checking the correctness of status code and fields (with corresponding values) of the object returned as response
+* the ones labelled with "WRONG" simulate bad requests and the relative correct error handling, checking the status code and the error string returned as response.
+
+There are 2 ways of runnuning the tests:
+* [Testing Using Docker (suggested)](#Testing-using-docker-(suggested))
 * [Testing Using npm](#Testing-using-npm)
 * [Expected Results](#Expected-Results)
 
-### Testing using Docker 
+### Testing using Docker (suggested) 
 The Test container is available [here](https://cloud.docker.com/u/alessandrobuschini/repository/docker/alessandrobuschini/igenius_assignment_test).
 Once you have docker installed:
 1. Run the container: 
